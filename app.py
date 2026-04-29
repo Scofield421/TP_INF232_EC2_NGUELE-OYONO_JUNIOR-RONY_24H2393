@@ -219,7 +219,7 @@ if nav == "Collecte":
         misinfo_risk = st.slider("Q16) Crainte de désinformation / erreurs (1–5)", 1, 5, 3)
 
         st.markdown("---")
-        st.markdown("## F. Adoption (Q17) - échelle 1 à 5")
+        st.markdown("## F. Adoption ( échelle 1 à 5")
         adoption_intent = st.slider(
             "Q17) Intention d’adopter l’IA dans les 6 prochains mois (1–5)",
             1, 5, 3,
@@ -273,7 +273,7 @@ if nav == "Collecte":
 
             try:
                 supabase.table("ia_africa_responses").insert(payload).execute()
-                st.success("✅ Merci ! Ta réponse a été enregistrée.")
+                st.success("Merci ! Ta réponse a été enregistrée.")
                 st.rerun()
             except Exception as e:
                 st.error(f"Erreur lors de l’insertion Supabase : {e}")
@@ -305,7 +305,7 @@ elif nav == "Analyse":
     st.write(f"Nombre de réponses : **{len(df)}**")
 
     # (6) Histogrammes + (8) Camembert + (7) Courbes
-    st.markdown("## (6) Histogrammes")
+    st.markdown("## Histogrammes")
     col1, col2 = st.columns(2)
     with col1:
         fig_h1 = px.histogram(df, x="usage_freq", nbins=5, title="Distribution de la fréquence d’utilisation (Q8)")
@@ -314,11 +314,11 @@ elif nav == "Analyse":
         fig_h2 = px.histogram(df, x="trust_ai", nbins=5, title="Distribution de la confiance dans l’IA (Q13)")
         st.plotly_chart(fig_h2, use_container_width=True)
 
-    st.markdown("## (8) Diagramme de camembert")
+    st.markdown("## Diagramme de camembert")
     fig_pie = px.pie(df, names="primary_use_case", title="Répartition des objectifs principaux (Q9)")
     st.plotly_chart(fig_pie, use_container_width=True)
 
-    st.markdown("## (7) Graphes de courbe")
+    st.markdown("## Graphes de courbe")
     df_time = df.dropna(subset=["created_at"]).copy()
     if df_time.empty:
         st.info("created_at indisponible pour tracer des courbes.")
@@ -339,7 +339,7 @@ elif nav == "Analyse":
             st.plotly_chart(fig_line2, use_container_width=True)
 
     # (1) Régression linéaire simple : usage_freq ~ ai_knowledge
-    st.markdown("## (1) Régression linéaire simple : usage_freq ~ ai_knowledge (Q8 ~ Q6)")
+    st.markdown("## Régression linéaire simple : usage_freq ~ ai_knowledge (Q8 ~ Q6)")
     df_reg1, _, _ = safe_dropna(df, ["usage_freq", "ai_knowledge"])
     if len(df_reg1) < 3:
         st.warning("Pas assez de données pour la régression simple.")
@@ -365,7 +365,7 @@ elif nav == "Analyse":
         st.plotly_chart(fig_scatter, use_container_width=True)
 
     # (2) Régression linéaire multiple
-    st.markdown("## (2) Régression linéaire multiple : usage_freq ~ (Q6,Q7,Q5,Q13,Q12)")
+    st.markdown("## Régression linéaire multiple : usage_freq ~ (Q6,Q7,Q5,Q13,Q12)")
     df_reg2, _, _ = safe_dropna(
         df, ["usage_freq", "ai_knowledge", "internet_access", "training", "trust_ai", "impact_economy"]
     )
@@ -396,7 +396,7 @@ elif nav == "Analyse":
         st.plotly_chart(fig_bar, use_container_width=True)
 
     # (3) PCA (réduction des dimensions)
-    st.markdown("## (3) Réduction des dimensions : PCA")
+    st.markdown("## Réduction des dimensions : PCA")
     pca_features = [
         "ai_knowledge",
         "internet_access",
@@ -440,7 +440,7 @@ elif nav == "Analyse":
         st.plotly_chart(fig_pca, use_container_width=True)
 
     # (4) Classification supervisée : high_adoption
-    st.markdown("## (4) Classification supervisée : prédire high_adoption")
+    st.markdown("## Classification supervisée : prédire high_adoption")
     clf_features = [
         "ai_knowledge",
         "internet_access",
